@@ -9,16 +9,38 @@ fn handle_client(mut stream: TcpStream) {
     match stream.read(&mut buffer) {
         Ok(_) => {
             println!("Received request from client: {}", String::from_utf8_lossy(&buffer));
-            let response = if buffer.starts_with(b"GET /") {
-                if buffer.starts_with(b"GET / ") || buffer.starts_with(b"GET /index ") {
-                    read_file_response("pages/index.html", "text/html")
-                } else if buffer.starts_with(b"GET /contact ") {
-                    read_file_response("pages/contact.html", "text/html")
-                } else if buffer.starts_with(b"GET /about ") {
-                    read_file_response("pages/about.html", "text/html")
+            let response = if buffer.starts_with(b"GET /en/") {
+                if buffer.starts_with(b"GET /en/ ") || buffer.starts_with(b"GET /en/index ") {
+                    read_file_response("pages/en/index.html", "text/html")
+                } else if buffer.starts_with(b"GET /en/contact ") {
+                    read_file_response("pages/en/contact.html", "text/html")
+                } else if buffer.starts_with(b"GET /en/about ") {
+                    read_file_response("pages/en/about.html", "text/html")
                 } else {
                     not_found_response()
                 }
+            } else if buffer.starts_with(b"GET /pl/") {
+                if buffer.starts_with(b"GET /pl/ ") || buffer.starts_with(b"GET /pl/index ") {
+                    read_file_response("pages/pl/index.html", "text/html")
+                } else if buffer.starts_with(b"GET /pl/contact ") {
+                    read_file_response("pages/pl/contact.html", "text/html")
+                } else if buffer.starts_with(b"GET /pl/about ") {
+                    read_file_response("pages/pl/about.html", "text/html")
+                } else {
+                    not_found_response()
+                }
+            }else if buffer.starts_with(b"GET /de/") {
+                if buffer.starts_with(b"GET /de/ ") || buffer.starts_with(b"GET /de/index ") {
+                    read_file_response("pages/de/index.html", "text/html")
+                } else if buffer.starts_with(b"GET /de/contact ") {
+                    read_file_response("pages/de/contact.html", "text/html")
+                } else if buffer.starts_with(b"GET /de/about ") {
+                    read_file_response("pages/de/about.html", "text/html")
+                } else {
+                    not_found_response()
+                }
+            } else if buffer.starts_with(b"GET /")  {
+                    read_file_response("pages/index.html", "text/html") 
             } else {
                 not_found_response()
             };
